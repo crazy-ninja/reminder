@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from celery.schedules import crontab
+from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -40,7 +43,6 @@ INSTALLED_APPS = (
     'remind',
     'email_logs',
     'rest_framework',
-
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,10 +114,18 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
+# Here I am assuming the user can select the time with time interval of 30 Minute
+CELERYBEAT_SCHEDULE = {
+    'every-data-at-30-minute': {
+        'task': 'remind.tasks.notify_user',
+        'schedule': crontab(minute='*/30'),
+    },
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Kolkata'
 
@@ -139,3 +149,4 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.TemplateHTMLRenderer',
     )
 }
+
