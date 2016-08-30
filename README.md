@@ -1,7 +1,7 @@
 # SETUP PROJECT (Prerequisites : You have Postgres database in your system eg. my_database and python 3.4) <br>
 Create a folder (new_folder) <br>
 cd (new_folder) <br>
-Now clone the project : git@github.com:crazy-ninja/reminder.git <br>
+Now clone the project : git@github.com:gupta-komal/reminder.git <br>
 Create virtualenv and activate source <br>
 cd reminder <br>
 Go to reminder/settings.py and change the database setting according to you <br>
